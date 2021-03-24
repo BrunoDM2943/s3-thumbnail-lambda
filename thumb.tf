@@ -13,7 +13,7 @@ provider "aws" {
 
 resource "aws_s3_bucket" "bucket"{
     bucket = "thumb-lambda-test"
-    act = "private"
+    acl = "private"
 
     tags = {
         Name = "Thumb Lambda Test"
