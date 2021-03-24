@@ -11,13 +11,13 @@ provider "aws" {
   region  = "us-east-1"
 }
 
-resource "aws_s3_bucket" "bucket"{
-    bucket = "thumb-lambda-test"
-    acl = "private"
+resource "aws_s3_bucket" "bucket" {
+  bucket = "thumb-lambda-test"
+  acl    = "private"
 
-    tags = {
-        Name = "Thumb Lambda Test"
-    }
+  tags = {
+    Name = "Thumb Lambda Test"
+  }
 }
 
 resource "aws_iam_policy" "policy" {
@@ -39,8 +39,11 @@ resource "aws_iam_policy" "policy" {
       {
         Effect = "Allow"
         Action = [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
           "logs:PutLogEvents",
-          "logs:CreateLogGroup"
+          "logs:DescribeLogStreams"
+
         ]
         Resource = "*"
       }
@@ -72,7 +75,7 @@ resource "aws_lambda_function" "func" {
   filename         = "runtime.zip"
   function_name    = "thumb-generator-lambda"
   role             = aws_iam_role.role.arn
-  handler          = "lambda_handle"
+  handler          = "main.lambda_handle"
   source_code_hash = filebase64sha256("runtime.zip")
 
   runtime = "python3.8"

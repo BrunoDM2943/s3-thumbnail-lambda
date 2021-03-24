@@ -4,7 +4,7 @@ import boto3
 
 s3 = bolo3.client('s3')
 
-def generate_thumb(image_path, thumb_path)
+def generate_thumb(image_path, thumb_path):
     with Image.open(image_path) as image:
         print(image.format, f"{image.size}x{image.mode}")
         image.thumbnail(tuple(x / 2 for x in image.size))
