@@ -1,5 +1,6 @@
 #!/bin/bash
-pip3 install Pillow -t ./
-zip runtime.zip ./*
-rm -r PIL
-rm -r Pillow-*
+sam build --user-container
+cd .aws-sam/build/ThumbGeneratorFunction/
+zip runtime.zip ./* -r
+mv runtime.zip ../../../
+cd -

@@ -1,0 +1,8 @@
+Resources:
+  ThumbGeneratorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Zip
+      Handler: main.lambda_handler
+      Runtime: python3.7
+

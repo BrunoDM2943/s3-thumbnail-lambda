@@ -29,11 +29,13 @@ resource "aws_iam_policy" "policy" {
       {
         Effect = "Allow"
         Action = [
-          "s3:PutItem",
-          "s3:GetItem",
+          "s3:PutObject",
+          "s3:GetObject",
+          "s3:ListBucket"
         ]
         Resource = [
-          "${aws_s3_bucket.bucket.arn}/*"
+          "${aws_s3_bucket.bucket.arn}/*",
+          "${aws_s3_bucket.bucket.arn}"
         ]
       },
       {
@@ -77,8 +79,8 @@ resource "aws_lambda_function" "func" {
   role             = aws_iam_role.role.arn
   handler          = "main.lambda_handle"
   source_code_hash = filebase64sha256("runtime.zip")
-
-  runtime = "python3.8"
+  runtime          = "python3.7"
+  timeout          = 120
 }
 
 resource "aws_lambda_permission" "allow_bucket" {
